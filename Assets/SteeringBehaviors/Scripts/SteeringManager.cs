@@ -1,19 +1,35 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using System.Collections;
 
 public class SteeringManager : MonoBehaviour
 {
-    public float Speed = 10f;
+    public float speed = 10f;
 
-    // Use this for initialization
-    void Start()
+    private Vector3 force = new Vector3();
+
+    private SortedDictionary<float, ISteeringBehavior> behaviors = new SortedDictionary<float, ISteeringBehavior>();
+
+    public Vector3 Force
     {
-
+        get { return force; }
+        set { force = value; }
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        foreach (ISteeringBehavior behavior in behaviors.Values)
+        {
+            if (!behavior.RunBehavior())
+                break;
+        }
 
+        rigidbody.AddForce(force);
+        behaviors.Clear();
+    }
+
+    public void AddBehavior(float priority, ISteeringBehavior behavior)
+    {
+        behaviors.Add(priority, behavior);
     }
 }
