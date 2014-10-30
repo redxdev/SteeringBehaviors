@@ -28,7 +28,7 @@ public class SteeringManager : MonoBehaviour
         behaviors.Clear();
     }
 
-    public void AddBehavior(float priority, ISteeringBehavior behavior)
+    public void AddBehaviorTick(float priority, ISteeringBehavior behavior)
     {
         behaviors.Add(priority, behavior);
     }
