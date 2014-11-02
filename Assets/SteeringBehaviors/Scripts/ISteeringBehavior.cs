@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum BehaviorResult
+{
+    CancelLowPriority,
+    Continue
+}
 public interface ISteeringBehavior
 {
-    bool RunBehavior();
+    BehaviorResult RunBehavior();
 }

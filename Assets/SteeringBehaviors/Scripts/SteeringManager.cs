@@ -1,31 +1,52 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
+class PriorityComparer : IComparer<float>
+{
+    public int Compare(float x, float y)
+    {
+        int result = y.CompareTo(x);
+        if (result == 0)
+            return 1;
+        return result;
+    }
+}
+
 public class SteeringManager : MonoBehaviour
 {
-    public float speed = 10f;
+    public float velocityScale = 1f;
 
-    private Vector3 force = new Vector3();
+    public float maxVelocity = -1;
 
-    private SortedDictionary<float, ISteeringBehavior> behaviors = new SortedDictionary<float, ISteeringBehavior>();
+    private Vector3 velocity = new Vector3();
 
-    public Vector3 Force
+    private SortedList<float, ISteeringBehavior> behaviors = new SortedList<float, ISteeringBehavior>(new PriorityComparer());
+
+    public Vector3 Velocity
     {
-        get { return force; }
-        set { force = value; }
+        get { return velocity; }
+        set { velocity = value; }
     }
 
     void FixedUpdate()
     {
         foreach (ISteeringBehavior behavior in behaviors.Values)
         {
-            if (!behavior.RunBehavior())
+            if (behavior.RunBehavior() == BehaviorResult.CancelLowPriority)
                 break;
         }
 
-        rigidbody.AddForce(force);
         behaviors.Clear();
+
+        rigidbody.velocity += Velocity;
+        Velocity = Vector3.zero;
+
+        if (maxVelocity > 0)
+        {
+            rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, maxVelocity);
+        }
     }
 
     public void AddBehaviorTick(float priority, ISteeringBehavior behavior)
