@@ -30,7 +30,7 @@ public class TestBehavior : AbstractSteeringBehavior
         if (f.magnitude == 0)
             return BehaviorResult.Continue;
 
-        steering.Velocity += f;
+        steering.Force += f;
 
         return base.RunBehavior();
     }

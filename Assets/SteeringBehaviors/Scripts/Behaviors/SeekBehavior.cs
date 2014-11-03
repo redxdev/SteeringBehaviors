@@ -37,7 +37,7 @@ public class SeekBehavior : AbstractSteeringBehavior
         dv = dv.normalized * steering.maxVelocity * speed.Evaluate(calcDistance);
         dv -= rigidbody.velocity;
         dv.y = 0;
-        steering.Velocity += dv;
+        steering.Force += dv;
 
         return base.RunBehavior();
     }

@@ -20,12 +20,12 @@ public class SteeringManager : MonoBehaviour
 
     private SortedList<float, ISteeringBehavior> behaviors = new SortedList<float, ISteeringBehavior>(new PriorityComparer());
 
-    private Vector3 velocity = new Vector3();
+    private Vector3 force = new Vector3();
 
-    public Vector3 Velocity
+    public Vector3 Force
     {
-        get { return velocity; }
-        set { velocity = value; }
+        get { return force; }
+        set { force = value; }
     }
 
     void FixedUpdate()
@@ -38,8 +38,8 @@ public class SteeringManager : MonoBehaviour
 
         behaviors.Clear();
 
-        rigidbody.velocity += Velocity;
-        Velocity = Vector3.zero;
+        rigidbody.velocity += Force;
+        Force = Vector3.zero;
 
         if (maxVelocity > 0)
         {
