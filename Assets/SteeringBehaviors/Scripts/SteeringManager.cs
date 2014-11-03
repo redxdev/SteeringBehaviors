@@ -16,13 +16,11 @@ class PriorityComparer : IComparer<float>
 
 public class SteeringManager : MonoBehaviour
 {
-    public float velocityScale = 1f;
-
-    public float maxVelocity = -1;
-
-    private Vector3 velocity = new Vector3();
+    public float maxVelocity = 5f;
 
     private SortedList<float, ISteeringBehavior> behaviors = new SortedList<float, ISteeringBehavior>(new PriorityComparer());
+
+    private Vector3 velocity = new Vector3();
 
     public Vector3 Velocity
     {
@@ -45,12 +43,17 @@ public class SteeringManager : MonoBehaviour
 
         if (maxVelocity > 0)
         {
+            float oldY = rigidbody.velocity.y;
             rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, maxVelocity);
+            rigidbody.velocity = new Vector3(rigidbody.velocity.x, oldY, rigidbody.velocity.z);
         }
     }
 
     public void AddBehaviorTick(float priority, ISteeringBehavior behavior)
     {
+        if (priority < 0)
+            return;
+
         behaviors.Add(priority, behavior);
     }
 }
