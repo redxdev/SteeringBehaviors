@@ -8,7 +8,7 @@ public class TestBehavior : AbstractSteeringBehavior
 
     public Vector3 direction = new Vector3(1.0f, 0.0f, 0.0f);
 
-    public float priority = 1.0f;
+    public float weight = 1f;
 
     private SteeringManager steering = null;
 
@@ -19,19 +19,12 @@ public class TestBehavior : AbstractSteeringBehavior
 
     void FixedUpdate()
     {
-        steering.AddBehaviorTick(priority, this);
+        steering.AddBehaviorTick(weight, this);
     }
 
-    public override BehaviorResult RunBehavior()
+    public override Vector3 RunBehavior()
     {
         float axis = Input.GetAxis(axisName);
-        Vector3 f = direction * axis;
-
-        if (f.magnitude == 0)
-            return BehaviorResult.Continue;
-
-        steering.Force += f;
-
-        return base.RunBehavior();
+        return direction * axis * steering.maxForce;
     }
 }

@@ -321,10 +321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01f3baebe061294fb9de24960b884e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cancelLowPriority: 0
   axisName: Horizontal
   direction: {x: 1, y: 0, z: 0}
-  priority: 1
+  weight: 1
 --- !u!114 &536735929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5332ee2dc1d407249800bb38bbdd0370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 4
+  maxForce: 25
 --- !u!114 &536735930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,10 +347,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01f3baebe061294fb9de24960b884e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cancelLowPriority: 0
   axisName: Vertical
   direction: {x: 0, y: 0, z: 1}
-  priority: 1
+  weight: 1
 --- !u!1 &912006733
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,20 +452,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855b4dba8d49cf1408b72791654701d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cancelLowPriority: 0
   target: {fileID: 536735927}
-  priority:
+  weight:
     serializedVersion: 2
     m_Curve:
-    - time: .0398908854
-      value: 1.99785638
-      inSlope: .00367549248
-      outSlope: .00367549248
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
-    - time: 9.97408962
-      value: -.124308825
-      inSlope: -.723888397
-      outSlope: -.723888397
+    - time: 100
+      value: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -475,24 +472,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
-    - time: .958348095
-      value: -.00816689432
-      inSlope: -.00261864718
-      outSlope: -.00261864718
-      tangentMode: 0
-    - time: 1.55891585
-      value: .57145381
-      inSlope: 1.51008368
-      outSlope: 1.51008368
-      tangentMode: 0
-    - time: 2.00074148
-      value: .995723665
-      inSlope: -.00295214052
-      outSlope: -.00295214052
       tangentMode: 0
     - time: 10
       value: 1
@@ -512,7 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5332ee2dc1d407249800bb38bbdd0370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 2
+  maxForce: 15
 --- !u!54 &1059820537
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -575,7 +557,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1059820534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .22818917, y: 7.48558712, z: 7.96287918}
+  m_LocalPosition: {x: .22818917, y: 4.45132351, z: 7.96287918}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

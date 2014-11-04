@@ -6,11 +6,11 @@ public class SeekBehavior : AbstractSteeringBehavior
 {
     public Transform target = null;
 
-    [Tooltip("Priority curve, based on distance")]
-    public AnimationCurve priority = AnimationCurve.Linear(0f, 1f, 100f, 1f);
+    [Tooltip("Weight curve, based on distance")]
+    public AnimationCurve weight = AnimationCurve.Linear(0f, 1f, 100f, 1f);
 
     [Tooltip("Speed curve, based on distance")]
-    public AnimationCurve speed = AnimationCurve.EaseInOut(0f, 0f, 10f, 1f);
+    public AnimationCurve speed = AnimationCurve.Linear(0f, 1f, 10f, 1f);
 
     private SteeringManager steering = null;
 
@@ -28,17 +28,16 @@ public class SeekBehavior : AbstractSteeringBehavior
 
         calcDistance = Vector3.Distance(transform.position, target.position);
 
-        steering.AddBehaviorTick(priority.Evaluate(calcDistance), this);
+        steering.AddBehaviorTick(weight.Evaluate(calcDistance), this);
     }
 
-    public override BehaviorResult RunBehavior()
+    public override Vector3 RunBehavior()
     {
         Vector3 dv = target.position - transform.position;
-        dv = dv.normalized * steering.maxVelocity * speed.Evaluate(calcDistance);
+        dv = dv.normalized * steering.maxForce * speed.Evaluate(calcDistance);
         dv -= rigidbody.velocity;
         dv.y = 0;
-        steering.Force += dv;
 
-        return base.RunBehavior();
+        return dv;
     }
 }

@@ -3,57 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
-class PriorityComparer : IComparer<float>
-{
-    public int Compare(float x, float y)
-    {
-        int result = y.CompareTo(x);
-        if (result == 0)
-            return 1;
-        return result;
-    }
-}
-
 public class SteeringManager : MonoBehaviour
 {
-    public float maxVelocity = 5f;
-
-    private SortedList<float, ISteeringBehavior> behaviors = new SortedList<float, ISteeringBehavior>(new PriorityComparer());
-
-    private Vector3 force = new Vector3();
-
-    public Vector3 Force
+    private struct BehaviorTick
     {
-        get { return force; }
-        set { force = value; }
+        public float Weight { get; set; }
+        public ISteeringBehavior Behavior { get; set; }
     }
+
+    public float maxForce = 15f;
+
+    private LinkedList<BehaviorTick> behaviors = new LinkedList<BehaviorTick>();
 
     void FixedUpdate()
     {
-        foreach (ISteeringBehavior behavior in behaviors.Values)
+        float totalWeight = 0;
+        foreach(BehaviorTick tick in behaviors)
         {
-            if (behavior.RunBehavior() == BehaviorResult.CancelLowPriority)
-                break;
+            totalWeight += tick.Weight;
+        }
+
+        Vector3 appliedForce = Vector3.zero;
+
+        foreach (BehaviorTick tick in behaviors)
+        {
+            appliedForce += tick.Behavior.RunBehavior() * (tick.Weight / totalWeight);
         }
 
         behaviors.Clear();
 
-        rigidbody.velocity += Force;
-        Force = Vector3.zero;
+        Debug.Log("Applied force for " + gameObject.name + ": " + appliedForce);
 
-        if (maxVelocity > 0)
-        {
-            float oldY = rigidbody.velocity.y;
-            rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, maxVelocity);
-            rigidbody.velocity = new Vector3(rigidbody.velocity.x, oldY, rigidbody.velocity.z);
-        }
+        rigidbody.AddForce(appliedForce);
     }
 
-    public void AddBehaviorTick(float priority, ISteeringBehavior behavior)
+    public void AddBehaviorTick(float weight, ISteeringBehavior behavior)
     {
-        if (priority < 0)
+        if (weight <= 0)
             return;
 
-        behaviors.Add(priority, behavior);
+        behaviors.AddLast(new BehaviorTick() { Weight = weight, Behavior = behavior });
     }
 }

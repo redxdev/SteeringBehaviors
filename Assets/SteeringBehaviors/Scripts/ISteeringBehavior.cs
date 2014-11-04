@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum BehaviorResult
-{
-    CancelLowPriority,
-    Continue
-}
 public interface ISteeringBehavior
 {
-    BehaviorResult RunBehavior();
+    /// <summary>
+    /// Runs the behavior.
+    /// </summary>
+    /// <returns>Normalized force vector. This may exceed magnitude 1 if desired.</returns>
+    Vector3 RunBehavior();
 }
