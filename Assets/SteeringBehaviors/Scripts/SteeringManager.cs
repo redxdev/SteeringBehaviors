@@ -13,7 +13,11 @@ public class SteeringManager : MonoBehaviour
 
     public float maxForce = 15f;
 
+    public bool clampMaxForce = true;
+
     private LinkedList<BehaviorTick> behaviors = new LinkedList<BehaviorTick>();
+
+    public Vector3 LastForce { get; protected set; }
 
     void FixedUpdate()
     {
@@ -32,9 +36,15 @@ public class SteeringManager : MonoBehaviour
 
         behaviors.Clear();
 
-        Debug.Log("Applied force for " + gameObject.name + ": " + appliedForce);
+        if (clampMaxForce)
+        {
+            appliedForce = Vector3.ClampMagnitude(appliedForce, maxForce);
+        }
+
+        Debug.DrawRay(transform.position, appliedForce);
 
         rigidbody.AddForce(appliedForce);
+        LastForce = appliedForce;
     }
 
     public void AddBehaviorTick(float weight, ISteeringBehavior behavior)
