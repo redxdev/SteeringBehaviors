@@ -14,6 +14,7 @@ GameObject:
   - 54: {fileID: 5400000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400004}
   m_Layer: 9
   m_Name: flocking
   m_TagString: Untagged
@@ -90,11 +91,11 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 1
+  weight: .0500000007
   speed: 1
-  separationWeight: 1
-  alignmentWeight: 1
-  cohesionWeight: 1
+  separationWeight: 1.29999995
+  alignmentWeight: .600000024
+  cohesionWeight: 1.29999995
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,6 +109,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxForce: 10
   clampMaxForce: 1
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855b4dba8d49cf1408b72791654701d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  weight:
+    serializedVersion: 2
+    m_Curve:
+    - time: 1.59960949
+      value: 1.52368701
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  speed:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 10
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1
