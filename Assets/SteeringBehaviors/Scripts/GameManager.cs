@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     {
         PlaceTarget();
 
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 20; i++)
         {
             Vector3 pos = new Vector3(Random.Range(-40, 40), 4f, Random.Range(-40, 40));
             Quaternion rot = Quaternion.Euler(0, Random.Range(0, 90), 0);

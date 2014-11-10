@@ -91,11 +91,11 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: .0500000007
+  weight: 1
   speed: 1
-  separationWeight: 1.29999995
-  alignmentWeight: .600000024
-  cohesionWeight: 1.29999995
+  separationWeight: .5
+  alignmentWeight: .0500000007
+  cohesionWeight: .300000012
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 855b4dba8d49cf1408b72791654701d8, type: 3}
   m_Name: 
