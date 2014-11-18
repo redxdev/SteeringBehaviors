@@ -55,7 +55,7 @@ public class ObstacleAvoidanceBehavior : AbstractSteeringBehavior
         float rightDotVTC = Vector3.Dot(vecToHit, transform.right);
 
         float myRadius = Vector3.Distance(transform.position, localHit);
-        float otherRadius = Vector3.Distance(obj.transform.position, hit);
+        float otherRadius = obstacleDistance / 2;
 
         if (Mathf.Abs(rightDotVTC) > myRadius + otherRadius)
             return Vector3.zero;
