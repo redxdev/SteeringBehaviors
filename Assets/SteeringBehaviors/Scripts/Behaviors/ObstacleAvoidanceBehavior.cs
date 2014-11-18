@@ -31,8 +31,9 @@ public class ObstacleAvoidanceBehavior : AbstractSteeringBehavior
         foreach (Collider collider in hitColliders)
         {
             Vector3 hit = collider.ClosestPointOnBounds(transform.position);
+            Debug.Log(hit);
             Vector3 localHit = this.collider.ClosestPointOnBounds(hit);
-            calcForce += AvoidObstacle(collider.gameObject, hit, localHit);
+            calcForce += AvoidObstacle(collider.gameObject, hit, localHit)*1/Vector3.Distance(localHit, hit);
             Debug.DrawLine(collider.transform.position, transform.position, Color.blue);
         }
 

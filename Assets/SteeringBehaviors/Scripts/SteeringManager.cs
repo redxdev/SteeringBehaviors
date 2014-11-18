@@ -41,6 +41,8 @@ public class SteeringManager : MonoBehaviour
             appliedForce = Vector3.ClampMagnitude(appliedForce, maxForce);
         }
 
+        appliedForce = appliedForce.normalized*maxForce;
+
         Debug.DrawRay(transform.position, appliedForce);
 
         rigidbody.AddForce(appliedForce);
