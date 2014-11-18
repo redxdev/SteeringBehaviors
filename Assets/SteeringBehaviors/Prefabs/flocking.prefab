@@ -87,15 +87,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31cc0faa3c6bcb40a4e9ac40bee5e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighborhood: 20
+  neighborhood: 40
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
   weight: 1
   speed: 1
-  separationWeight: .5
-  alignmentWeight: .0500000007
-  cohesionWeight: .300000012
+  separationWeight: .800000012
+  alignmentWeight: .100000001
+  cohesionWeight: .200000003
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,37 +115,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 855b4dba8d49cf1408b72791654701d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weight:
-    serializedVersion: 2
-    m_Curve:
-    - time: 1.59960949
-      value: 1.52368701
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  speed:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 10
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
+  weight: 100
+  speed: 1
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1

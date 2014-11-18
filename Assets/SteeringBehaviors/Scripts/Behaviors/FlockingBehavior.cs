@@ -39,7 +39,7 @@ public class FlockingBehavior : AbstractSteeringBehavior
             force += Cohesion(collider.gameObject, hitColliders.Length)*cohesionWeight;
             force += Alignment(collider.gameObject, hitColliders.Length)*alignmentWeight;
 
-            calcForce += force.normalized*steering.maxForce*speed;
+            calcForce += force.normalized;
         }
 
         if(calcForce.magnitude > 0)
@@ -49,7 +49,7 @@ public class FlockingBehavior : AbstractSteeringBehavior
     private Vector3 Separate(GameObject obj)
     {
         Vector3 direction = transform.position - obj.transform.position;
-        return direction.normalized;
+        return direction.normalized * 1 / Vector3.Distance(transform.position, obj.transform.position);
     }
 
     private Vector3 Cohesion(GameObject obj, int count)
@@ -69,6 +69,6 @@ public class FlockingBehavior : AbstractSteeringBehavior
 
     public override Vector3 RunBehavior()
     {
-        return calcForce;
+        return calcForce*steering.maxForce*speed;
     }
 }

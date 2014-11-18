@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: seek manager
+  m_Name: game manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,6 +42,7 @@ MonoBehaviour:
   seeker: {fileID: 0}
   target: {fileID: 0}
   obstaclePrefab: {fileID: 100000, guid: 0a452235c46e0874290814fcb4d54081, type: 2}
+  obstacleCount: 20
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

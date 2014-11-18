@@ -8,11 +8,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject obstaclePrefab;
 
+    public int obstacleCount = 20;
+
 	void Start ()
     {
         PlaceTarget();
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < obstacleCount; i++)
         {
             Vector3 pos = new Vector3(Random.Range(-40, 40), 4f, Random.Range(-40, 40));
             Quaternion rot = Quaternion.Euler(0, Random.Range(0, 90), 0);
@@ -25,7 +27,10 @@ public class GameManager : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update ()
-    {
+	{
+	    if (seeker == null || target == null)
+	        return;
+
 	    if (Vector3.Distance(seeker.transform.position, target.transform.position) < 5)
 	    {
 	        PlaceTarget();
