@@ -2,19 +2,14 @@
 using System.Collections;
 
 [RequireComponent(typeof(SteeringManager))]
-public class ObstacleAvoidanceBehavior : AbstractSteeringBehavior
+public class ObstacleAvoidanceBehavior : MonoBehaviour
 {
 
     public float weight = 1.0f;
-    public float speed = 1.0f;
 
     public float obstacleDistance = 10f;
 
-    public LayerMask obstacleLayerMask;
-
     private SteeringManager steering = null;
-
-    private Vector3 calcForce = Vector3.zero;
 
     void Start()
     {
@@ -23,51 +18,46 @@ public class ObstacleAvoidanceBehavior : AbstractSteeringBehavior
 
     void FixedUpdate()
     {
-        calcForce = Vector3.zero;
+        Vector3 calcForce = Vector3.zero;
 
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, obstacleDistance,
-            obstacleLayerMask.value);
+        Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
 
-        foreach (Collider collider in hitColliders)
+        foreach (Obstacle obstacle in obstacles)
         {
-            Vector3 hit = collider.ClosestPointOnBounds(transform.position);
-            Debug.Log(hit);
-            Vector3 localHit = this.collider.ClosestPointOnBounds(hit);
-            calcForce += AvoidObstacle(collider.gameObject, hit, localHit)*1/Vector3.Distance(localHit, hit);
-            Debug.DrawLine(collider.transform.position, transform.position, Color.blue);
+            if (!obstacle.enabled)
+                continue;
+
+            calcForce += AvoidObstacle(obstacle);
         }
 
-        Debug.DrawRay(transform.position, calcForce, Color.red);
-
-        if(calcForce.magnitude > 0)
-            steering.AddBehaviorTick(weight, this);
+        if (calcForce.magnitude > 0)
+            steering.AddForce(weight, calcForce);
     }
 
-    private Vector3 AvoidObstacle(GameObject obj, Vector3 hit, Vector3 localHit)
+    private Vector3 AvoidObstacle(Obstacle obst)
     {
-        if (Vector3.Distance(hit, localHit) > obstacleDistance)
+        float obRadius = obst.radius;
+
+        Vector3 vecToCenter = obst.transform.position - transform.position;
+        vecToCenter.y = 0;
+        float dist = vecToCenter.magnitude;
+
+        if (dist > obstacleDistance + obRadius + steering.agentRadius)
             return Vector3.zero;
 
-        Vector3 vecToHit = hit - transform.position;
-        if (Vector3.Dot(vecToHit, transform.forward) < 0)
+        if (Vector3.Dot(transform.forward, vecToCenter) < 0)
             return Vector3.zero;
 
-        float rightDotVTC = Vector3.Dot(vecToHit, transform.right);
+        float rightDotVTC = Vector3.Dot(vecToCenter, transform.right);
 
-        float myRadius = Vector3.Distance(transform.position, localHit);
-        float otherRadius = obstacleDistance / 2;
-
-        if (Mathf.Abs(rightDotVTC) > myRadius + otherRadius)
+        if (Mathf.Abs(rightDotVTC) > steering.agentRadius + obRadius)
             return Vector3.zero;
+
+        Debug.DrawLine(transform.position, obst.transform.position, Color.red);
 
         if (rightDotVTC > 0)
-            return transform.right*-steering.maxForce*obstacleDistance/vecToHit.magnitude;
+            return transform.right*-steering.maxSpeed*obstacleDistance/dist;
         else
-            return transform.right*steering.maxForce*obstacleDistance/vecToHit.magnitude;
-    }
-
-    public override Vector3 RunBehavior()
-    {
-        return calcForce;
+            return transform.right*steering.maxSpeed*obstacleDistance/dist;
     }
 }

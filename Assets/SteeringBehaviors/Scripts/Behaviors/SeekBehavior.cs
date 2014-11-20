@@ -2,36 +2,32 @@
 using System.Collections;
 
 [RequireComponent(typeof(SteeringManager))]
-public class SeekBehavior : AbstractSteeringBehavior
+public class SeekBehavior : MonoBehaviour
 {
     public Transform target = null;
 
-    public float weight = 1;
-
-    public float speed = 1;
+    public float weight = 1.0f;
 
     private SteeringManager steering = null;
+
+    private CharacterController controller = null;
 
     void Start()
     {
         steering = GetComponent<SteeringManager>();
+        controller = GetComponent<CharacterController>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (target == null)
             return;
 
-        steering.AddBehaviorTick(weight, this);
-    }
-
-    public override Vector3 RunBehavior()
-    {
         Vector3 dv = target.position - transform.position;
-        dv = dv.normalized * steering.maxForce * speed;
-        dv -= rigidbody.velocity;
+        dv = dv.normalized*steering.maxSpeed;
+        dv -= controller.velocity;
         dv.y = 0;
 
-        return dv;
+        steering.AddForce(weight, dv);
     }
 }

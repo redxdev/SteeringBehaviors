@@ -18,10 +18,7 @@ public class GameManager : MonoBehaviour
         {
             Vector3 pos = new Vector3(Random.Range(-40, 40), 4f, Random.Range(-40, 40));
             Quaternion rot = Quaternion.Euler(0, Random.Range(0, 90), 0);
-            GameObject o = (GameObject)Instantiate(obstaclePrefab, pos, rot);
-
-            float scale = Random.Range(2f, 5f);
-            o.transform.localScale = new Vector3(scale, scale, scale);
+            Instantiate(obstaclePrefab, pos, rot);
         }
 	}
 	
