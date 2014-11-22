@@ -37,7 +37,7 @@ public class SeparationBehavior : MonoBehaviour
                 continue;
 
             float distance = Vector3.Distance(transform.position, c.transform.position);
-            separationForce += (transform.position - c.transform.position);
+            separationForce += (transform.position - c.transform.position).normalized*1/distance;
         }
 
         separationForce = separationForce.normalized*steering.maxSpeed - controller.velocity;
