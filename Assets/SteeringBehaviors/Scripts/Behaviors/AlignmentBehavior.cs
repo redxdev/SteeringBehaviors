@@ -11,10 +11,12 @@ public class AlignmentBehavior : MonoBehaviour
     public float weight = 1f;
 
     private SteeringManager steering = null;
+    private CharacterController controller = null;
 
     void Start()
     {
         steering = GetComponent<SteeringManager>();
+        controller = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -24,7 +26,7 @@ public class AlignmentBehavior : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, neighborhood,
             searchLayer.value);
 
-        if (hitColliders.Length == 0)
+        if (hitColliders.Length <= 1)
             return;
 
         // alignment
@@ -36,7 +38,7 @@ public class AlignmentBehavior : MonoBehaviour
             alignmentForce += c.transform.forward;
         }
 
-        alignmentForce /= hitColliders.Length;
+        alignmentForce = alignmentForce.normalized*steering.maxSpeed - controller.velocity;
 
         steering.AddForce(weight, alignmentForce);
     }

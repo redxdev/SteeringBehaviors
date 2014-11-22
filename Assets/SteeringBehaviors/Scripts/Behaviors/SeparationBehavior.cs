@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using System.Collections;
 
 
 [RequireComponent(typeof(SteeringManager))]
 public class SeparationBehavior : MonoBehaviour
 {
-    public float neighborhood = 30f;
+    public float closeRadius = 10f;
     public LayerMask searchLayer;
 
     public float weight = 1f;
@@ -23,10 +24,10 @@ public class SeparationBehavior : MonoBehaviour
     {
         Vector3 separationForce = Vector3.zero;
 
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, neighborhood,
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, closeRadius,
             searchLayer.value);
 
-        if (hitColliders.Length == 0)
+        if (hitColliders.Length <= 1)
             return;
 
         // separation
@@ -35,10 +36,11 @@ public class SeparationBehavior : MonoBehaviour
             if (c == this.collider)
                 continue;
 
-            Vector3 force = transform.position - c.transform.position;
-            force /= Vector3.Distance(c.transform.position, transform.position);
-            separationForce += force;
+            float distance = Vector3.Distance(transform.position, c.transform.position);
+            separationForce += (transform.position - c.transform.position);
         }
+
+        separationForce = separationForce.normalized*steering.maxSpeed - controller.velocity;
 
         steering.AddForce(weight, separationForce);
     }

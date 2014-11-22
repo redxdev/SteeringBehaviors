@@ -26,7 +26,7 @@ public class CohesionBehavior : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, neighborhood,
             searchLayer.value);
 
-        if (hitColliders.Length == 0)
+        if (hitColliders.Length <= 1)
             return;
 
         // cohesion
@@ -38,7 +38,7 @@ public class CohesionBehavior : MonoBehaviour
             cohesionForce += c.transform.position;
         }
 
-        cohesionForce /= hitColliders.Length;
+        cohesionForce /= hitColliders.Length - 1;
         cohesionForce = cohesionForce - transform.position;
         cohesionForce = cohesionForce.normalized*steering.maxSpeed - controller.velocity;
 

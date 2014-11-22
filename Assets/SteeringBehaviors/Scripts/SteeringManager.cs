@@ -6,7 +6,7 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class SteeringManager : MonoBehaviour
 {
-    private struct BehaviorForce
+    public struct BehaviorForce
     {
         public float Weight { get; set; }
         public Vector3 Force { get; set; }
