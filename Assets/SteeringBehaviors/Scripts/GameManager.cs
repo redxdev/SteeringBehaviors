@@ -7,8 +7,10 @@ public class GameManager : MonoBehaviour
     public GameObject target;
 
     public GameObject obstaclePrefab;
+    public GameObject flockPrefab;
 
     public int obstacleCount = 20;
+    public int flockCount = 20;
 
 	void Start ()
     {
@@ -20,6 +22,17 @@ public class GameManager : MonoBehaviour
             Quaternion rot = Quaternion.Euler(0, Random.Range(0, 90), 0);
             Instantiate(obstaclePrefab, pos, rot);
         }
+
+	    for (int i = 0; i < flockCount; i++)
+	    {
+	        Vector3 pos = new Vector3(
+                50 * Mathf.Cos(Random.Range(0, 2*Mathf.PI)),
+                4f,
+                50 * Mathf.Sin(Random.Range(0, 2*Mathf.PI))
+                );
+
+	        Instantiate(flockPrefab, pos, Quaternion.identity);
+	    }
 	}
 	
 	// Update is called once per frame
