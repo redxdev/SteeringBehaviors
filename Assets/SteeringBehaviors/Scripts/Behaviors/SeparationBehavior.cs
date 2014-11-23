@@ -6,7 +6,7 @@ using System.Collections;
 [RequireComponent(typeof(SteeringManager))]
 public class SeparationBehavior : MonoBehaviour
 {
-    public float closeRadius = 10f;
+    public float desiredSeparation = 10f;
     public LayerMask searchLayer;
 
     public float weight = 1f;
@@ -24,7 +24,7 @@ public class SeparationBehavior : MonoBehaviour
     {
         Vector3 separationForce = Vector3.zero;
 
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, closeRadius,
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, desiredSeparation,
             searchLayer.value);
 
         if (hitColliders.Length <= 1)

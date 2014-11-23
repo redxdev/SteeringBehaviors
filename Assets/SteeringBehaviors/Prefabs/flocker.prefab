@@ -68,16 +68,16 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45d454ff8799ae34780148a0a254ae48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeRadius: 3
+  closeRadius: 10
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 1
+  weight: 1.5
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8f537b0fc90c147a1a365986f151b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 3
+  weight: 1
   obstacleDistance: 30
 --- !u!114 &11400006
 MonoBehaviour:
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b83fe965cee58e4284ddd8040fa38d6, type: 3}
   m_Name: 
@@ -136,7 +136,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 1
+  weight: 2
 --- !u!143 &14300000
 CharacterController:
   m_ObjectHideFlags: 1
