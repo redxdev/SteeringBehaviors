@@ -11,48 +11,70 @@ public class PathFollowingBehavior : MonoBehaviour
     private SteeringManager steering;
     private CharacterController controller;
 
+    private PathNode currentNode = null;
+
     void Start()
     {
         steering = GetComponent<SteeringManager>();
         controller = GetComponent<CharacterController>();
+        currentNode = firstNode;
     }
 
     void Update()
     {
-        if (firstNode == null || firstNode.nextNode == null)
+        if (firstNode == null || firstNode.nextNode == null || currentNode == null || currentNode.nextNode == null)
             return;
 
         Vector3 predict = controller.velocity;
         predict = predict.normalized * lookAhead;
         Vector3 predictLoc = transform.position + predict;
 
-        PathNode currentNode = firstNode;
-        PathNode target = null;
-        Vector3 targetNormal = Vector3.zero;
-        float targetDistance = float.MaxValue;
-        while (currentNode != null && currentNode.nextNode != null && !currentNode.endChain)
+        PathNode targetNode = null;
+        Vector3 targetNormal = transform.position;
+        float targetDistance = 0;
+
+        Vector3 currentStart = currentNode.transform.position;
+        Vector3 currentEnd = currentNode.nextNode.transform.position;
+        Vector3 currentNormal = GetNormalPoint(predictLoc, currentStart, currentEnd);
+        float currentDist = Vector3.Distance(predictLoc, currentNormal);
+
+        Debug.DrawLine(predictLoc, currentNormal, Color.red);
+
+        if (currentNode.nextNode.nextNode != null)
         {
-            Vector3 start = currentNode.transform.position;
-            Vector3 end = currentNode.nextNode.transform.position;
+            Vector3 nextStart = currentEnd;
+            Vector3 nextEnd = currentNode.nextNode.nextNode.transform.position;
+            Vector3 nextNormal = GetNormalPoint(predictLoc, nextStart, nextEnd);
+            float nextDist = Vector3.Distance(predictLoc, nextNormal);
 
-            Vector3 normalPoint = GetNormalPoint(predictLoc, start, end);
-            if (normalPoint.x < start.x || normalPoint.x > end.x)
+            Debug.DrawLine(predictLoc, nextNormal, Color.yellow);
+
+            if (currentDist < nextDist)
             {
-                normalPoint = end;
+                targetNode = currentNode;
+                targetNormal = currentNormal;
+                targetDistance = currentDist;
             }
-
-            float distance = Vector3.Distance(transform.position, normalPoint);
-            if (target == null || distance < targetDistance)
+            else
             {
-                target = currentNode;
-                targetNormal = normalPoint;
-                targetDistance = distance;
+                targetNode = currentNode.nextNode;
+                targetNormal = nextNormal;
+                targetDistance = nextDist;
             }
-
-            currentNode = currentNode.nextNode;
+        }
+        else
+        {
+            targetNode = currentNode;
+            targetNormal = currentNormal;
+            targetDistance = currentDist;
         }
 
-        if (targetDistance > target.pathRadius)
+        if (targetNode == null)
+            return;
+
+        currentNode = targetNode;
+
+        if (targetDistance > currentNode.pathRadius)
         {
             Vector3 dv = targetNormal - transform.position;
             dv = dv.normalized * steering.maxSpeed;
@@ -63,13 +85,23 @@ public class PathFollowingBehavior : MonoBehaviour
         }
     }
 
-    private Vector3 GetNormalPoint(Vector3 local, Vector3 start, Vector3 end)
+    private Vector3 GetNormalPoint(Vector3 p, Vector3 start, Vector3 end)
     {
-        Vector3 a = local - start;
+        Vector3 a = p - start;
         Vector3 b = end - start;
 
         b.Normalize();
         b *= Vector3.Dot(a, b);
-        return end + b;
+
+        Vector3 normal = start + b;
+
+        float startToEndDist = Vector3.Distance(start, end);
+
+        if (Vector3.Distance(start, normal) > startToEndDist)
+            normal = end;
+        else if (Vector3.Distance(end, normal) > startToEndDist)
+            normal = start;
+
+        return normal;
     }
 }
