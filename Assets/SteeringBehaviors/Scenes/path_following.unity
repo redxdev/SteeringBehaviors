@@ -394,7 +394,7 @@ LineRenderer:
       serializedVersion: 2
       rgba: 4294967295
   m_UseWorldSpace: 1
---- !u!1001 &657629824
+--- !u!1001 &342490106
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -403,7 +403,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 8be9a730dd0a4c24082d7eac881db92e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 170.201202
+      value: 181.962463
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8be9a730dd0a4c24082d7eac881db92e, type: 2}
       propertyPath: m_LocalPosition.y
@@ -411,7 +411,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8be9a730dd0a4c24082d7eac881db92e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -77.0120392
+      value: -78.0633774
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8be9a730dd0a4c24082d7eac881db92e, type: 2}
       propertyPath: m_LocalRotation.x
@@ -430,8 +430,8 @@ Prefab:
       value: -.952459216
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8be9a730dd0a4c24082d7eac881db92e, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
+      propertyPath: m_RootMapOrder
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 8be9a730dd0a4c24082d7eac881db92e, type: 2}
       propertyPath: firstNode
@@ -866,7 +866,7 @@ LineRenderer:
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: 8be9a730dd0a4c24082d7eac881db92e, type: 2}
-  m_PrefabInternal: {fileID: 657629824}
+  m_PrefabInternal: {fileID: 342490106}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1232453430}
@@ -888,7 +888,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: 8be9a730dd0a4c24082d7eac881db92e,
     type: 2}
-  m_PrefabInternal: {fileID: 657629824}
+  m_PrefabInternal: {fileID: 342490106}
   m_GameObject: {fileID: 1232453424}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -903,7 +903,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400002, guid: 8be9a730dd0a4c24082d7eac881db92e,
     type: 2}
-  m_PrefabInternal: {fileID: 657629824}
+  m_PrefabInternal: {fileID: 342490106}
   m_GameObject: {fileID: 1232453424}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -911,14 +911,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &1232453427
 Renderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 2300000, guid: 8be9a730dd0a4c24082d7eac881db92e,
     type: 2}
-  m_PrefabInternal: {fileID: 657629824}
+  m_PrefabInternal: {fileID: 342490106}
   m_GameObject: {fileID: 1232453424}
   m_Enabled: 1
   m_CastShadows: 1
@@ -939,7 +939,7 @@ CharacterController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 14300000, guid: 8be9a730dd0a4c24082d7eac881db92e,
     type: 2}
-  m_PrefabInternal: {fileID: 657629824}
+  m_PrefabInternal: {fileID: 342490106}
   m_GameObject: {fileID: 1232453424}
   serializedVersion: 2
   m_Height: 2
@@ -954,17 +954,17 @@ MeshFilter:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 3300000, guid: 8be9a730dd0a4c24082d7eac881db92e,
     type: 2}
-  m_PrefabInternal: {fileID: 657629824}
+  m_PrefabInternal: {fileID: 342490106}
   m_GameObject: {fileID: 1232453424}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1232453430
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: 8be9a730dd0a4c24082d7eac881db92e, type: 2}
-  m_PrefabInternal: {fileID: 657629824}
+  m_PrefabInternal: {fileID: 342490106}
   m_GameObject: {fileID: 1232453424}
   m_LocalRotation: {x: 0, y: -.304666281, z: 0, w: -.952459216}
-  m_LocalPosition: {x: 170.201202, y: 1, z: -77.0120392}
+  m_LocalPosition: {x: 181.962463, y: 1, z: -78.0633774}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -974,7 +974,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400004, guid: 8be9a730dd0a4c24082d7eac881db92e,
     type: 2}
-  m_PrefabInternal: {fileID: 657629824}
+  m_PrefabInternal: {fileID: 342490106}
   m_GameObject: {fileID: 1232453424}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -1831,7 +1831,6 @@ MonoBehaviour:
   m_LightmapIndex: -1
   m_LightmapSize: 1024
   m_DrawTreesAndFoliage: 1
-  m_CollectDetailPatches: 1
   m_MaterialTemplate: {fileID: 0}
 --- !u!4 &2071592981
 Transform:

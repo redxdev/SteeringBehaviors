@@ -57,7 +57,7 @@ public class SteeringManager : MonoBehaviour
 
         velocity.y = -20.0f*Time.deltaTime;
 
-        controller.Move(velocity);
+        controller.Move(velocity*Time.deltaTime);
 
         forces.Clear();
 

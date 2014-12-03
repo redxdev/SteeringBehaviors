@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!114 &11400004
 MonoBehaviour:
