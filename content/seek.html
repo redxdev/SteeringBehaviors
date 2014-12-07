@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-md-8">
+        <h1>Seeking and Obstacle Avoidance</h1>
+        <p>
+            This demo shows off two behaviors: seek and obstacle avoidance. The prefab agent is
+            <code>/SteeringBehaviors/Prefabs/seeker</code>, and the example scene is
+            <code>/SteeringBehaviors/Scenes/seek</code>.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="images/seek-inspector.png" alt="inspector">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <h2>Seek <code>SeekBehavior.cs</code></h2>
+        <p>
+            Seeking is a basic behavior that makes an agent move towards a target. Many other more complex behaviors
+            such as path following and cohesion use some form of seek algorithm. Seeking is a fairly simple algorithm
+            which takes the following form:
+        </p>
+        $$
+            \vec{s} = \mbox{target position} \\
+            \vec{u} = \mbox{agent position} \\
+            \vec{v} = \mbox{agent velocity} \\
+            s = \mbox{maximum speed} \\
+            \vec{dv} = \mbox{desired velocity} \\
+            \vec{dv} = \vec{s} - \vec{u} \\
+            \vec{dv} = \|\vec{dv}\| \cdot s \\
+            \vec{dv} = \vec{dv} - \vec{v}
+        $$
+        <p>
+            In code, this is a very simple algorithm to implement.
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <pre>
+Vector3 dv = target.position - transform.position;
+dv = dv.normalized * steering.maxSpeed;
+dv -= controller.velocity;
+dv.y = 0 // don't seek up or down
+
+steering.AddForce(weight, dv);
+        </pre>
+    </div>
+    <div class="col-md-4">
+        This assumes <code>controller</code> is the agent's <code>CharacterController</code> component and
+        <code>target</code> is a transform.
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <h2>Obstacle Avoidance</h2>
+        <p>
+            Obstacle avoidance is an incredibly useful behavior, especially when combined with other behaviors (such as
+            seek). The demo above includes randomly spawned obstacles for the agent to avoid while seeking the target.
+            Obstacle avoidance is much more involved than seek, though the way it works is fairly simple.
+        </p>
+        <p>
+            For the sake of simplicity, each obstacle is given a radius which the agent will avoid. The agent also is
+            given a radius so it knows how big it is. Finally, a search radius for obstacles (obstacleDistance) is
+            given. For each obstacle, the function <code>AvoidObstacle</code> is run:
+        </p>
+        <pre>
+Vector3 AvoidObstacle(Obstacle obst)
+{
+    float obRadius = obst.radius;
+
+    Vector3 vecToCenter = obst.transform.position - transform.position;
+    vecToCenter.y = 0;
+    float dist = vecToCenter.magnitude;
+
+    if(dist > obstacleDistance + obRadius + steering.agentRadius)
+        return Vector3.zero; // obstacle is far away
+
+    if(Vector3.Dot(transform.forward, vecToCenter) < 0)
+        return Vector3.zero; // obstacle is behind the agent
+
+    float rightDotVTC = Vector3.Dot(vecToCenter, transform.right);
+
+    if(Mathf.Abs(rightDotVTC) > steering.agentRadius + obRadius)
+        return Vector3.zero; // agent can pass safely
+
+    if(rightDotVTC > 0)
+        return transform.right * -steering.maxSpeed * obstacleDistance / dist;
+    else
+        return transform.right * steering.maxSpeed * obstacleDistance / dist;
+}
+        </pre>
+        <p>
+            This function is run for every obstacle in the world, and the return values are summed to created the
+            steering force.
+        </p>
+    </div>
+</div>
