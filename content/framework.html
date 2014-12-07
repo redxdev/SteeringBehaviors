@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-md-8">
+        <h1>The Framework</h1>
+        <p>
+            Provided inside the unity project is a basic framework intended to make it very easy to play with steering
+            behaviors. Inside the <code>/SteeringBehaviors/Scripts/</code> folder, there is a
+            <code>SteeringManager</code> script. This is what handles actually moving your agents around the world. To
+            use it, you also need a <code>Character Controller</code> component. You can see how an agent might be set
+            up in the inspector to the right. An alternative to setting up an agent yourself, you may also use the
+            <code>/SteeringBehaviors/Prefabs/basic steering setup</code> prefab, which already has all the components
+            you need.
+        </p>
+        <h2>Basic Concepts</h2>
+        <h3>Force</h3>
+        <p>
+            <em>Force</em> is the primary way to move agents around. Whenever a steering behavior needs to move an
+            agent, it tells the <em>steering manager</em> to apply a force. The important thing to note here is that
+            a steering behavior should never apply the force itself.
+        </p>
+        <h3>Weight</h3>
+        <p>
+            <em>Weight</em> is the ratio of one steering behavior's force to another. When force is applied, it is
+            weighted relative to the total weight of forces that frame.
+        </p>
+        <p>
+            For example, given the forces \(\vec{a}\) with weight 1 and \(\vec{b}\) with weight 2, force \(\vec{b}\)
+            will be twice the magnitude of \(\vec{a}\).
+        </p>
+        <h2>Writing Behaviors</h2>
+        <p>
+            Writing behaviors is incredibly easy. Here we'll use C# (though this should work fine in JS as well), so
+            create a new C# script (henseforth known as <code>MyBehavior.cs</code>). Steering behaviors are, in fact,
+            just normal Unity components which simply call <code>AddForce(weight, force)</code> on a
+            <code>SteeringManager</code> object. Start with the following code:
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="images/framework-inspector.png" alt="inspector">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <pre>
+using UnityEngine;
+
+[RequireComponent(typeof(SteeringManager))]
+public class MyBehavior : MonoBehavior
+{
+    private SteeringManager steering = null;
+
+    void Start()
+    {
+        steering = GetComponent&lt;SteeringManager&gt;();
+    }
+}
+        </pre>
+        <p>
+            That's all the boilerplate code you need to set up a steering behavior. Next, we'll apply a force. Create
+            the following method in your class.
+        </p>
+        <pre>
+void Update()
+{
+    steering.AddForce(1, new Vector3(1, 0, 0));
+}
+        </pre>
+    </div>
+    <div class="col-md-4">
+        <p>
+            You may also want to add a <code>CharacterController</code> field such that you can retrieve information
+            about velocity, but that isn't required for this tutorial.
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <p>
+            You're done creating your first (simple) behavior. The most important line of the entire class here is
+            the <code>steering.AddForce(1, new Vector3(1, 0, 0));</code> line, which tells the steering manager to apply
+            a force. The first argument (where you have a <em>1</em>) is the weight of the force. The second argument
+            is the actual force you want to apply.
+        </p>
+        <p>
+            That's it for how to use the framwork. Take a look at the other examples and tutorials, or look through the
+            source code to see how everything works!
+        </p>
+    </div>
+    <div class="col-md-4">
+        When applying a force via <code>SteeringManager.ApplyForce</code>, make sure that the force you are applying is
+        normalized. Otherwise, the weight system may be thrown off depending on how far from normalized the force is.
+    </div>
+</div>
