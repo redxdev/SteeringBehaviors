@@ -1,0 +1,177 @@
+<div class="row">
+    <div class="col-md-8">
+        <h1>Flocking</h1>
+        <p>
+            This demo shows off three behaviors which collectively make up the flocking behavior. The prefab agent is
+            <code>/SteeringBehaviors/Prefabs/flocker</code>, and the example scene is
+            <code>/SteeringBehaviors/Scenes/flocking</code>.
+        </p>
+        <p>
+            Flocking is a fairly simple behavior which makes a large group of agents act as a cohesive crowd. The
+            behavior is split into three sub-behaviors (which themselves can be used outside of flocking): Separation,
+            alignment, and cohesion.
+        </p>
+        <h2>Separation</h2>
+        <p><code>SeparationBehavior.cs</code></p>
+        <p>
+            Separation is a very easy behavior to implement that conceptually just applies a force away from every other
+            agent nearby.
+        </p>
+        $$
+            \mbox{For every other agent within a radius} \\
+            u = \mbox{agent position} \\
+            s = \mbox{other agent position} \\
+            d = \|u - s\| \\
+            \vec{f} = \frac{u - s}{d^2} \\
+            \\
+            \vec{dv} = \frac{\mbox{addition of all } \vec{f}}{\mbox{number of nearby agents}} \\
+            \vec{dv} = \frac{\vec{dv}}{\|\vec{dv}\|} * \mbox{max speed} - \mbox{current velocity}
+        $$
+        <p>
+            The code for this is pretty simple, and we can take advantage of a few unity functions to make it really
+            easy.
+        </p>
+        <pre>
+Vector3 separationForce = Vector3.zero;
+
+Collider hitColliders[] = Physics.OverlapSphere(transform.position, desiredSeparation, searchLayer);
+        </pre>
+        <p>
+            We start off by making a <code>separationForce</code>, which we'll use to store the final force to apply.
+            Next, we use unity's <code>Physics.OverlapSphere</code> function to find all colliders within a radius. This
+            is much more efficient than querying every object in the world, as it makes use of unity's physics engine.
+        </p>
+        <pre>
+foreach(var c in hitColliders)
+{
+    if (c == this.collider) // ignore our local collider
+        continue;
+
+    float distance = Vector3.Distance(transform.position, c.transform.position);
+    separationForce += (transform.position - c.transform.position).normalized / distance;
+}
+        </pre>
+        <p>
+            This is pretty much a direct interpretation of the first half of the forumulas above. It creates a force
+            that is inversely related to the distance to each nearby agent. For the second half of the algorithm:
+        </p>
+        <pre>
+separationForce /= hitColliders.Length - 1 // minus 1 since we don't count ourselves
+separationForce = separationForce.normalized * steering.maxSpeed - controller.velocity;
+
+steering.AddForce(weight, separationForce);
+        </pre>
+        <p>
+            That's it for separation! This behavior alone will make agents move away from each other.
+        </p>
+        <h2>
+            Cohesion
+        </h2>
+        <p><code>CohesionBehavior.cs</code></p>
+        <p>
+            Cohesion is an even easier behavior which seeks the average position of all nearby agents.
+        </p>
+        $$
+            \mbox{For every other agent within a radius} \\
+            s = \mbox{agent position} \\
+            s = \mbox{other agent position} \\
+            \vec{f} = s \\
+            \\
+            \vec{dv} = \frac{\mbox{addition of all } \vec{f}}{\mbox{number of agents}} \\
+            \vec{dv} = \vec{dv} - s \\
+            \vec{dv} = \frac{\vec{dv}}{\|\vec{dv}\|} * \mbox{max speed} - \mbox{current velocity}
+        $$
+        <p>
+            Here's the code:
+        </p>
+        <pre>
+Vector3 cohesionForce = Vector3.zero;
+
+Collider[] hitColliders = Physics.OverlapSphere(transform.position, neighborhood, searchLayer);
+        </pre>
+        <p>
+            Again, we look for nearby agents.
+        </p>
+        <pre>
+foreach (var c in hitColliders)
+{
+    if (c == this.collider)
+        continue;
+
+    cohesionForce += c.transform.position;
+}
+        </pre>
+        <p>
+            Here we start the algorithm by adding up the positions of every agent. Next, we take the average...
+        </p>
+        <pre>
+cohesionForce /= hitColliders.Length - 1;
+        </pre>
+        <p>
+            And get a vector to that average.
+        </p>
+        <pre>
+cohesionForce = cohesionForce - transform.position;
+        </pre>
+        <p>
+            Finally, we seek the point at the max speed.
+        </p>
+        <pre>
+cohesionForce = cohesionForce.normalized*steering.maxSpeed - controller.velocity;
+
+steering.AddForce(weight, cohesionForce);
+        </pre>
+        <p>
+            That's it for cohesion! Alone, it will cause a group of agents to all run towards the center of the group.
+        </p>
+        <h2>Alignment</h2>
+        <p><code>AlignmentBehavior.cs</code></p>
+        <p>
+            Alignment is the final behavior required for flocking. It causes agents to turn in the average direction of
+            other agents in the area. It works similarly to cohesion except it uses the forward direction of other
+            agents instead of their position.
+        </p>
+        $$
+            \mbox{For every other agent within a radius} \\
+            \vec{fv} = \mbox{other agent forward velocity} \\
+            \vec{f} = fv \\
+            \\
+            \vec{dv} = \frac{\mbox{addition of all } \vec{f}}{\mbox{number of agents}} \\
+            \vec{dv} = \frac{\vec{dv}}{\|\vec{dv}\|} * \mbox{max speed} - \mbox{current velocity}
+        $$
+        <p>
+            The code is almost exactly the same as in cohesion.
+        </p>
+        <pre>
+Vector3 alignmentForce = Vector3.zero;
+
+Collider[] hitColliders = Physics.OverlapSphere(transform.position, neighborhood,
+    searchLayer.value);
+
+// alignment
+foreach (var c in hitColliders)
+{
+    if (c == this.collider)
+        continue;
+
+    alignmentForce += c.transform.forward;
+}
+
+alignmentForce = alignmentForce.normalized*steering.maxSpeed - controller.velocity;
+
+steering.AddForce(weight, alignmentForce);
+        </pre>
+        <p>
+            That's cohesion! Alone, this will just make all the agents face the same direction.
+        </p>
+        <h2>Putting it all together</h2>
+        <p>
+            Adding all three behaviors to an object is all you really need for flocking. With the implementations in
+            this framework, weights of 1.5, 1, and 2 for separation, cohesion, and alignment respectively seem to work
+            best. It can even be combined with other behaviors such as seek to create complex flocking behaviors.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="images/flocking-inspector.png" alt="inspector">
+    </div>
+</div>
