@@ -4,4 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/SteeringBehaviors/Scenes/initial.unity
+  - enabled: 1
+    path: Assets/SteeringBehaviors/Scenes/crowd_pathing.unity
+  - enabled: 1
+    path: Assets/SteeringBehaviors/Scenes/flocking.unity
+  - enabled: 1
+    path: Assets/SteeringBehaviors/Scenes/path_following.unity
+  - enabled: 1
+    path: Assets/SteeringBehaviors/Scenes/framework.unity
+  - enabled: 1
+    path: Assets/SteeringBehaviors/Scenes/seek.unity
