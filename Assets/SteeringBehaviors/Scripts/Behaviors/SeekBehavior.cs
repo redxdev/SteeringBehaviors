@@ -12,10 +12,13 @@ public class SeekBehavior : MonoBehaviour
 
     private CharacterController controller = null;
 
+    private ObstacleAvoidanceBehavior oab = null;
+
     void Start()
     {
         steering = GetComponent<SteeringManager>();
         controller = GetComponent<CharacterController>();
+        oab = GetComponent<ObstacleAvoidanceBehavior>();
     }
 
     void Update()
@@ -29,5 +32,15 @@ public class SeekBehavior : MonoBehaviour
         dv.y = 0;
 
         steering.AddForce(weight, dv);
+
+        // if the target is behind us, disable the obstacle avoidance behavior
+        if (oab != null && Vector3.Dot(transform.forward, target.transform.position - transform.position) < 0)
+        {
+            oab.enabled = false;
+        }
+        else if (oab != null)
+        {
+            oab.enabled = true;
+        }
     }
 }

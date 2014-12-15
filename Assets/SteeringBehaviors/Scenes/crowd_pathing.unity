@@ -115,7 +115,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &710593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &710594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &710597
 Renderer:
@@ -228,7 +228,7 @@ Transform:
   m_PrefabInternal: {fileID: 400867677}
   m_GameObject: {fileID: 710591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 161.257446, y: 1, z: -76.344986}
+  m_LocalPosition: {x: 139.695541, y: 1, z: -84.5888901}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -303,7 +303,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &5541639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +320,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &5541640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &5541643
 Renderer:
@@ -491,7 +491,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &48321384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,7 +508,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &48321385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &48321388
 Renderer:
@@ -608,7 +608,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
 --- !u!114 &48321392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,7 +965,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 161.257446
+      value: 139.695541
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_LocalPosition.y
@@ -973,7 +973,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -76.344986
+      value: -84.5888901
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_LocalRotation.x
@@ -993,7 +993,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 26
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -1041,7 +1041,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 18
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -1089,7 +1089,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 22
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -1141,7 +1141,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &444500150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1158,7 +1158,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &444500151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1201,7 +1201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &444500154
 Renderer:
@@ -1325,7 +1325,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 21
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -1377,7 +1377,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &541955582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1394,7 +1394,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &541955583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1437,7 +1437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &541955586
 Renderer:
@@ -1565,7 +1565,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &565247670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1582,7 +1582,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &565247671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1625,7 +1625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &565247674
 Renderer:
@@ -1753,7 +1753,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &644470938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1770,7 +1770,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &644470939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1813,7 +1813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &644470942
 Renderer:
@@ -1941,7 +1941,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &723602577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1958,7 +1958,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &723602578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2001,7 +2001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &723602581
 Renderer:
@@ -2125,7 +2125,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f6b7cb87337c3cd4c8a69e70f9dbf5b5, type: 2}
       propertyPath: m_RootOrder
-      value: 28
+      value: 31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f6b7cb87337c3cd4c8a69e70f9dbf5b5, type: 2}
@@ -2173,7 +2173,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &927909613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2190,7 +2190,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &927909614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2233,7 +2233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &927909617
 Renderer:
@@ -2773,7 +2773,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 20
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -3029,7 +3029,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 24
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -3214,7 +3214,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
 --- !u!120 &1414661867
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3285,7 +3285,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 27
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -3337,7 +3337,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &1619529209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3354,7 +3354,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &1619529210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3397,7 +3397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &1619529213
 Renderer:
@@ -3625,7 +3625,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 23
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -3673,7 +3673,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 19
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -3721,7 +3721,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 25
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -3773,7 +3773,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 4
+  weight: 2
 --- !u!114 &1853981003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3790,7 +3790,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 2
+  weight: 1.5
 --- !u!114 &1853981004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3833,7 +3833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxForce: .5
+  maxForce: 10
   agentRadius: 1
 --- !u!23 &1853981007
 Renderer:
@@ -4268,7 +4268,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b793c39a93af1db499cab2c620d9b815, type: 2}
       propertyPath: firstNode
@@ -4331,6 +4331,7 @@ MonoBehaviour:
   m_LightmapIndex: -1
   m_LightmapSize: 1024
   m_DrawTreesAndFoliage: 1
+  m_CollectDetailPatches: 1
   m_MaterialTemplate: {fileID: 0}
 --- !u!4 &2071592981
 Transform:

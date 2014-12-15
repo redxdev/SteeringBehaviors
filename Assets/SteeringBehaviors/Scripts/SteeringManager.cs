@@ -18,6 +18,8 @@ public class SteeringManager : MonoBehaviour
 
     public float agentRadius = 1.0f;
 
+    public Animator animator = null;
+
     private LinkedList<BehaviorForce> forces = new LinkedList<BehaviorForce>();
 
     private CharacterController controller = null;
@@ -62,6 +64,11 @@ public class SteeringManager : MonoBehaviour
         forces.Clear();
 
         Debug.DrawRay(transform.position, transform.forward * 5);
+
+        if (animator != null)
+        {
+            animator.SetFloat("Speed", controller.velocity.magnitude);
+        }
     }
 
     public void AddForce(float weight, Vector3 force)
