@@ -1,0 +1,207 @@
+<div class="row">
+    <div class="col-md-8">
+        <h1>Path Following</h1>
+        <p>
+            This demo shows off the path following behavior. The prefab agent is
+            <code>/SteeringBehaviors/Prefabs/path follower</code>, and the example scene is
+            <code>/SteeringBehaviors/Scenes/path following</code>.
+        </p>
+        <p>
+            Path following is a more complex behavior that makes an agent follow a path made up of a series of nodes. It
+            gives the agent a bit of leeway in following the path, only correcting which direction it is moving in if
+            it will move outside of a certain radius of the path.
+        </p>
+        <p>
+            The basic idea behind pathfollowing is that at every frame, the agent predicts a future position for itself
+            and projects that position on to a point on the path. If that position is too far away from point on the
+            path, we apply a force to aim the agent back towards the path.
+        </p>
+        <p><code>PathNode.cs</code></p>
+        <p>
+            Before we can start on the behavior, we need something to define a path. Here is the code for PathNode,
+            which should be added to an empty game object:
+        </p>
+        <pre>
+public class PathNode : MonoBehaviour
+{
+    public PathNode nextNode;
+
+    public float pathRadius = 5;
+}
+        </pre>
+        <p>
+            You might recognize this pattern as being a singly linked list (with some extras). In each path node, we
+            store a reference to the next node (creating the path) and also the radius of the path from the current node
+            to the next node. Go ahead and make a bunch of empty game objects, place a PathNode script on each, and set
+            the <code>nextNode</code> properties appropriately. Next, we need to start the path following behavior
+            itself.
+        </p>
+        <p><code>PathFollowingBehavior.cs</code></p>
+        <pre>
+[RequireComponent(typeof(SteeringManager))]
+public class PathFollowingBehavior : MonoBehaviour
+{
+    public PathNode firstNode;
+    public float lookAhead = 5;
+    public float weight = 1;
+
+    private SteeringManager steering;
+    private CharacterController controller;
+
+    private PathNode currentNode = null;
+
+    void Start()
+    {
+        steering = GetComponent&lt;SteeringManager&gt;();
+        controller = GetComponent&lt;CharacterController&gt;();
+        currentNode = firstNode;
+    }
+}
+        </pre>
+        <p>
+            First off, we have a reference to the first node of the path we want to follow. Next, we have a
+            <code>lookAhead</code> value. When path following, we don't really care where we are at the current point in
+            time, we only care about where the agent will be in a moment or two. As such, we have a <em>look ahead
+            distance</em> which we use for predictions. The look ahead positions are green points on the image below.
+        </p>
+        <p>
+            Next, we keep references to the character controller and steering manager. Finally, we have a reference to
+            the path node that we are currently using to create the path.
+        </p>
+        <img src="images/path-following.gif" alt="path following">
+        <p><small>Image credit <a href="http://www.red3d.com/cwr/steer/">Craig Reynolds</a></small></p>
+        <p>
+            Next, we're going to write a utility function that finds the point on a path which was projected from off
+            the path:
+        </p>
+        <pre>
+private Vector3 GetNormalPoint(Vector3 p, Vector3 start, Vector3 end)
+{
+    Vector3 a = p - start;
+    Vector3 b = end - start;
+
+    b.Normalize();
+    b *= Vector3.Dot(a, b);
+
+    Vector3 normal = start + b;
+
+    float startToEndDist = Vector3.Distance(start, end);
+
+    // if the normal point is off the path, we need to clamp it to the path
+    if (Vector3.Distance(start, normal) > startToEndDist)
+        normal = end;
+    else if (Vector3.Distance(end, normal) > startToEndDist)
+        normal = start;
+
+    return normal;
+}
+        </pre>
+        <p>
+            The mathematics here find the line that is both normal to the line segment and goes through the given point
+            (which will be our look ahead position), and then it finds the point that represents the intersection
+            between the path segment and the normal line. The if statements in the last half of the function simply
+            clamp the resulting point between the start and end of the path segment.
+        </p>
+        <p>
+            Now we can start writing the update function:
+        </p>
+        <pre>
+void Update()
+{
+    if (firstNode == null || firstNode.nextNode == null || currentNode == null || currentNode.nextNode == null)
+        return; // we don't have any more of the path to follow, so just return
+
+    Vector3 predict = controller.velocity;
+    predict = predict.normalized * lookAhead;
+    Vector3 predictLoc = transform.position + predict;
+}
+        </pre>
+        <p>
+            We start out by making sure we have a path to follow, and then we get the look ahead position
+            (<code>predict</code>).
+        </p>
+        <p>
+            The next section is the meat of the code. It finds the point normal to the current path segment (which is
+            made up of the line between the current and next node). It also calculates the point normal to the next path
+            segment. If the next path segment's point is closer than the current one, we move on to the next segment
+            of the path.
+        </p>
+        <pre>
+// This is the start of the path segment we are going to use. We don't know if it is the current or next path segment
+// yet.
+PathNode targetNode = null;
+Vector3 targetNormal = transform.position;
+float targetDistance = 0;
+
+Vector3 currentStart = currentNode.transform.position;
+Vector3 currentEnd = currentNode.nextNode.transform.position;
+Vector3 currentNormal = GetNormalPoint(predictLoc, currentStart, currentEnd); // get the point normal to our predicted
+                                                                              // position
+float currentDist = Vector3.Distance(predictLoc, currentNormal);
+        </pre>
+        <p>
+            Here we just set up some values for use later.
+        </p>
+        <pre>
+// If there is a path segment after the current one
+if (currentNode.nextNode.nextNode != null)
+{
+    // Set up some values
+    Vector3 nextStart = currentEnd;
+    Vector3 nextEnd = currentNode.nextNode.nextNode.transform.position;
+    Vector3 nextNormal = GetNormalPoint(predictLoc, nextStart, nextEnd); // get the point normal to our predicted position
+    float nextDist = Vector3.Distance(predictLoc, nextNormal);
+
+    if (currentDist < nextDist)
+    {
+        // the current path segment is closer than the next one
+        targetNode = currentNode;
+        targetNormal = currentNormal;
+        targetDistance = currentDist;
+    }
+    else
+    {
+        // the next path segment is closer than the current one
+        targetNode = currentNode.nextNode;
+        targetNormal = nextNormal;
+        targetDistance = nextDist;
+    }
+}
+else
+{
+    // There isn't a path segment after the current one
+    targetNode = currentNode;
+    targetNormal = currentNormal;
+    targetDistance = currentDist;
+}
+        </pre>
+        <p>
+            That's the bulk of the logic. Next, we need to check to see if our predicted position is outside of the
+            chosen path segment's radius, and finally we need to apply the force.
+        </p>
+        <pre>
+if (targetNode == null) // if we don't have a target for some reason, return
+    return;
+
+currentNode = targetNode; // our new current node is the target node
+
+// if the distance from the path segment is more than the path segment's radius
+if (targetDistance > currentNode.pathRadius)
+{
+    // seek the normal point
+    Vector3 dv = targetNormal - transform.position;
+    dv = dv.normalized * steering.maxSpeed;
+    dv -= controller.velocity;
+    dv.y = 0;
+
+    steering.AddForce(weight, dv);
+}
+        </pre>
+        <p>
+            That's it for path following!
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="images/path-following-inspector.png" alt="inspector">
+    </div>
+</div>
