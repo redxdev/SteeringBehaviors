@@ -18,20 +18,7 @@
         <p>
             Seeking is a basic behavior that makes an agent move towards a target. Many other more complex behaviors
             such as path following and cohesion use some form of seek algorithm. Seeking is a fairly simple algorithm
-            which takes the following form:
-        </p>
-        $$
-            s = \mbox{target position} \\
-            u = \mbox{agent position} \\
-            \vec{v} = \mbox{agent velocity} \\
-            s = \mbox{maximum speed} \\
-            \vec{dv} = \mbox{desired velocity} \\
-            \vec{dv} = \vec{s} - \vec{u} \\
-            \vec{dv} = \|\vec{dv}\| \cdot s \\
-            \vec{dv} = \vec{dv} - \vec{v}
-        $$
-        <p>
-            In code, this is a very simple algorithm to implement.
+            to implement in code:
         </p>
     </div>
 </div>
@@ -78,12 +65,12 @@ Vector3 AvoidObstacle(Obstacle obst)
         return Vector3.zero; // obstacle is far away
 
     if(Vector3.Dot(transform.forward, vecToCenter) < 0)
-        return Vector3.zero; // obstacle is behind the agent
+        return Vector3.zero; // obstacle is behind the agent, we can safely ignore it
 
     float rightDotVTC = Vector3.Dot(vecToCenter, transform.right);
 
     if(Mathf.Abs(rightDotVTC) > steering.agentRadius + obRadius)
-        return Vector3.zero; // agent can pass safely
+        return Vector3.zero; // agent can pass safely by the obstacle, so we can ignore it
 
     if(rightDotVTC > 0)
         return transform.right * -steering.maxSpeed * obstacleDistance / dist;

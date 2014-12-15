@@ -56,7 +56,15 @@
                     <li><a href="javascript:void(0)" onclick="loadContent('seek', 5);">Seeking + Obstacles</a></li>
                     <li><a href="javascript:void(0)" onclick="loadContent('flocking', 2)">Flocking</a></li>
                     <li><a href="javascript:void(0)" onclick="loadContent('path-following', 3)">Path Following</a></li>
-                    <li><a href="javascript:void(0)" onclick="loadContent('going-further', 1)">Going Further</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Going Further <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="javascript:void(0)" onclick="loadContent('crowd-pathing', 1)">Crowd Pathing</a></li>
+                            <li><a href="javascript:void(0)" onclick="loadContent('birds', 6)">Antigravity Flocking</a></li>
+                        </ul>
+                    </li>
                     <li><a href="javascript:void(0)" onclick="loadContent('credits', 4)">Credits</a></li>
                 </ul>
             </div>
