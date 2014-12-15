@@ -16,6 +16,8 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400010}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400008}
+  - 114: {fileID: 11400012}
   m_Layer: 9
   m_Name: crowd
   m_TagString: Untagged
@@ -91,7 +93,7 @@ MonoBehaviour:
   searchLayer:
     serializedVersion: 2
     m_Bits: 512
-  weight: 1
+  weight: 4
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,6 +121,22 @@ MonoBehaviour:
   maxSpeed: 10
   maxForce: .5
   agentRadius: 1
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119fde4aec9f7304ba95ff9fd830b25b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neighborhood: 30
+  searchLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  weight: 1
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -130,6 +148,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7098bb8838643b4fae8cf27a8351cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b83fe965cee58e4284ddd8040fa38d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neighborhood: 30
+  searchLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  weight: 2
 --- !u!143 &14300000
 CharacterController:
   m_ObjectHideFlags: 1

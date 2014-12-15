@@ -8,9 +8,6 @@ public class PathNode : MonoBehaviour
 
     public float pathRadius = 5;
 
-    [Tooltip("Check this if it is the end of a loop")]
-    public bool endChain = false;
-
     private LineRenderer lineRenderer;
 
     void Start()
