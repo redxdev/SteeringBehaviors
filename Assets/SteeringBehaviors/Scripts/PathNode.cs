@@ -8,6 +8,8 @@ public class PathNode : MonoBehaviour
 
     public float pathRadius = 5;
 
+    public bool endChain = false;
+
     private LineRenderer lineRenderer;
 
     void Start()
